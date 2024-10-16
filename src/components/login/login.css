@@ -1,0 +1,84 @@
+/* src/components/login/login.css */
+
+body {
+  background-color: #000; /* Чёрный фон для всей страницы */
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Высота на весь экран */
+}
+
+.login-form {
+  background-color: #fff; /* Белый фон для формы */
+  padding: 40px;
+  border-radius: 8px;
+  width: 400px; /* Ширина формы */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #000;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid #ccc; /* Тонкий серый контур снизу */
+  background: transparent;
+  outline: none;
+  color: #000;
+  font-size: 16px;
+}
+
+.input-group label {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  color: #aaa;
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.2s ease all;
+}
+
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label {
+  top: -20px;
+  font-size: 14px;
+  color: #000;
+}
+
+.input-group input:focus {
+  border-bottom: 1px solid #000; /* Чёрная подсветка при фокусе */
+}
+
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #000; /* Чёрная кнопка */
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.login-button:hover {
+  background-color: #333;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-bottom: 20px;
+}
