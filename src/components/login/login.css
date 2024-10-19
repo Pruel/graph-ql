@@ -1,28 +1,33 @@
 /* src/components/login/login.css */
 
 body {
-  background-color: #000; /* Чёрный фон для всей страницы */
+  background: linear-gradient(135deg, #1a1a2e, #16213e); /* Градиентный фон */
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Высота на весь экран */
+  height: 100vh;
 }
 
 .login-form {
-  background-color: #fff; /* Белый фон для формы */
+  background-color: rgba(255, 255, 255, 0.1); /* Полупрозрачный фон */
+  backdrop-filter: blur(10px); /* Эффект размытия фона позади */
   padding: 40px;
-  border-radius: 8px;
-  width: 400px; /* Ширина формы */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  width: 400px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  position: relative;
 }
 
 .login-form h2 {
   text-align: center;
   margin-bottom: 30px;
-  color: #000;
+  color: #fff;
 }
 
 .input-group {
@@ -32,53 +37,53 @@ body {
 
 .input-group input {
   width: 100%;
-  padding: 10px 0;
+  padding: 10px 15px;
   border: none;
-  border-bottom: 1px solid #ccc; /* Тонкий серый контур снизу */
-  background: transparent;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.2);
   outline: none;
-  color: #000;
+  color: #fff;
   font-size: 16px;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.input-group input::placeholder {
+  color: #ddd;
+}
+
+.input-group input:focus {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 .input-group label {
   position: absolute;
-  top: 10px;
-  left: 0;
-  color: #aaa;
-  font-size: 16px;
+  top: -20px;
+  left: 15px;
+  color: #fff;
+  font-size: 14px;
   pointer-events: none;
   transition: 0.2s ease all;
-}
-
-.input-group input:focus ~ label,
-.input-group input:not(:placeholder-shown) ~ label {
-  top: -20px;
-  font-size: 14px;
-  color: #000;
-}
-
-.input-group input:focus {
-  border-bottom: 1px solid #000; /* Чёрная подсветка при фокусе */
 }
 
 .login-button {
   width: 100%;
   padding: 12px;
-  background-color: #000; /* Чёрная кнопка */
+  background-color: #e94560;
   color: #fff;
   border: none;
+  border-radius: 30px;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
+  font-size: 18px;
+  transition: background-color 0.3s;
 }
 
 .login-button:hover {
-  background-color: #333;
+  background-color: #d63447;
 }
 
 .error {
-  color: red;
+  color: #ff6b6b;
   text-align: center;
   margin-bottom: 20px;
 }

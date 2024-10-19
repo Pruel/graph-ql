@@ -39,9 +39,13 @@ function Header() {
       </div>
       <div className="header-right">
         <div className="profile-menu">
-          <button onClick={toggleProfileMenu} className="profile-link">
-            Profile
-          </button>
+          {/* Заменяем кнопку на изображение профиля */}
+          <img
+            src="/images/profile.png" 
+            alt="Profile"
+            className="profile-picture"
+            onClick={toggleProfileMenu}
+          />
           {showProfileMenu && (
             <div className="profile-dropdown">
               <div className="user-info">

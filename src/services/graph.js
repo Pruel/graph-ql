@@ -1,3 +1,5 @@
+// src/services/graph.js
+
 import axios from 'axios';
 import { getToken } from './auth';
 
@@ -57,59 +59,115 @@ export const getTotalXP = async (userId) => {
   return amount || 0;
 };
 
-export const getProjectStats = async (userId) => {
+export const getProjectsXP = async (userId) => {
   const token = getToken();
   const query = `
     query {
-      passed: progress_aggregate(where: { userId: { _eq: ${userId} }, grade: { _eq: 1 } }) {
-        aggregate {
-          count
+      transaction(
+        where: {
+          userId: { _eq: ${userId} },
+          type: { _eq: "xp" },
+          object: { type: { _eq: "project" } }
         }
-      }
-      failed: progress_aggregate(where: { userId: { _eq: ${userId} }, grade: { _eq: 0 } }) {
-        aggregate {
-          count
+      ) {
+        amount
+        object {
+          name
         }
       }
     }
   `;
 
-  const response = await axios.post(
-    GRAPHQL_URL,
-    { query },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+  try {
+    const response = await axios.post(
+      GRAPHQL_URL,
+      { query },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.data.errors) {
+      console.error('GraphQL errors:', JSON.stringify(response.data.errors, null, 2));
+      throw new Error('GraphQL query failed');
     }
-  );
 
-  const passed = response.data.data.passed.aggregate.count || 0;
-  const failed = response.data.data.failed.aggregate.count || 0;
+    const transactions = response.data.data.transaction;
 
-  return { passed, failed };
+    const xpByProject = {};
+
+    transactions.forEach((tx) => {
+      const projectName = tx.object.name;
+      if (!xpByProject[projectName]) {
+        xpByProject[projectName] = 0;
+      }
+      xpByProject[projectName] += tx.amount;
+    });
+
+    const projectNames = Object.keys(xpByProject);
+    const xpValues = Object.values(xpByProject);
+
+    return { projectNames, xpValues };
+  } catch (error) {
+    console.error('Error in getProjectsXP:', error);
+    throw error;
+  }
 };
 
-export const getXPHistory = async (userId) => {
+export const getDailyXP = async (userId) => {
   const token = getToken();
   const query = `
     query {
-      transaction(where: { userId: { _eq: ${userId} }, type: { _eq: "xp" } }, order_by: { createdAt: asc }) {
+      transactions: transaction(
+        where: {
+          userId: { _eq: ${userId} },
+          type: { _eq: "xp" }
+        },
+        order_by: { createdAt: asc }
+      ) {
         amount
         createdAt
       }
     }
   `;
 
-  const response = await axios.post(
-    GRAPHQL_URL,
-    { query },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  try {
+    const response = await axios.post(
+      GRAPHQL_URL,
+      { query },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-  return response.data.data.transaction;
+    if (response.data.errors) {
+      console.error('GraphQL errors:', JSON.stringify(response.data.errors, null, 2));
+      throw new Error('GraphQL query failed');
+    }
+
+    const transactions = response.data.data.transactions;
+
+    // Обработка транзакций для суммирования XP по дням
+    const xpPerDay = {};
+
+    transactions.forEach((tx) => {
+      const date = new Date(tx.createdAt).toISOString().split('T')[0]; // Получаем дату в формате YYYY-MM-DD
+      if (!xpPerDay[date]) {
+        xpPerDay[date] = 0;
+      }
+      xpPerDay[date] += tx.amount;
+    });
+
+    const dates = Object.keys(xpPerDay).sort();
+    const xpValues = dates.map((date) => xpPerDay[date]);
+
+    return { dates, xpValues };
+  } catch (error) {
+    console.error('Error in getDailyXP:', error);
+    throw error;
+  }
 };

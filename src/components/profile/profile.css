@@ -1,67 +1,60 @@
 /* src/components/profile/profile.css */
 
-.profile-page {
+.profile-container {
   padding: 20px;
+  background: linear-gradient(135deg, #1a1a2e, #16213e); /* Градиентный фон */
+  min-height: calc(100vh - 70px); /* Учитываем высоту Header */
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
 }
 
-.profile-header {
+.profile-container h2 {
   text-align: center;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.profile-container p {
+  text-align: center;
+  font-size: 18px;
   margin-bottom: 30px;
 }
 
-.profile-header h1 {
-  font-size: 32px;
-  color: #000;
-}
-
-.profile-container {
-  color: white
-}
-
-.profile-content {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
 .stats {
-  display: flex;
-  justify-content: space-around;
+  text-align: center;
+  font-size: 20px;
   margin-bottom: 40px;
 }
 
-.stat-item {
-  text-align: center;
-}
-
-.stat-item h3 {
-  font-size: 24px;
-  color: #333;
-}
-
-.stat-item p {
-  font-size: 20px;
-  color: #666;
+.stats p {
+  margin: 5px 0;
 }
 
 .graphs {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
 }
 
 .graph {
-  margin: 20px;
-  background-color: #f9f9f9;
-  padding: 15px;
-  border: 1px solid #ccc;
+  margin: 20px 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 90%;
+  max-width: 800px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 .graph h3 {
   text-align: center;
-  margin-bottom: 15px;
-  color: #000;
+  margin-bottom: 20px;
+  color: #fff;
 }
 
-.p {
-  color: #ffffff;
+.graph canvas {
+  max-width: 100%;
+  height: auto;
 }

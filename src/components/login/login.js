@@ -1,3 +1,5 @@
+// src/components/login/login.js
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../services/auth';
@@ -10,10 +12,8 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Устанавливаем чёрный фон для страницы
     document.body.style.backgroundColor = '#000';
     return () => {
-      // Сбрасываем фон при размонтировании компонента
       document.body.style.backgroundColor = null;
     };
   }, []);
@@ -31,7 +31,8 @@ function Login() {
   return (
     <div className="login-container">
       <form onSubmit={handleSubmit} className="login-form">
-        <h2>Log In</h2>
+        {/* Добавим логотип или заголовок */}
+        <h2>Welcome Back!</h2>
         {error && <p className="error">{error}</p>}
         <div className="input-group">
           <input
@@ -40,7 +41,7 @@ function Login() {
             value={usernameOrEmail}
             onChange={(e) => setUsernameOrEmail(e.target.value)}
             required
-            placeholder=" "
+            placeholder="Username or Email"
           />
           <label htmlFor="usernameOrEmail">Username or Email</label>
         </div>
@@ -51,7 +52,7 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            placeholder=" "
+            placeholder="Password"
           />
           <label htmlFor="password">Password</label>
         </div>

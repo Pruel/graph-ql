@@ -1,9 +1,11 @@
+// src/components/profile/profile.js
+
 import React, { useEffect, useState } from 'react';
 import { getUserData, getTotalXP } from '../../services/graph';
 import { useUserId } from '../../services/auth';
 import './profile.css';
-import XPGraph from '../graphs/xpgraph';
-import ProjectRatioGraph from '../graphs/projectratiograph';
+import DailyXPGraph from '../graphs/dailyXPGraph'; // Новый график
+import ProjectsXPGraph from '../graphs/projectsXPGraph';
 
 function Profile() {
   const [userData, setUserData] = useState(null);
@@ -23,26 +25,26 @@ function Profile() {
       }
     }
     fetchData();
-  }, [setUserData, setTotalXP, userId]);
+  }, [userId]);
 
   if (!userData) return <p>Loading...</p>;
 
   return (
     <div className="profile-container">
       <h2>Learning Progress</h2>
-      <p>Welcome, {userData.login}!</p>
+      <p>Hello, {userData.login}!</p>
       <div className="stats">
         <p>Total XP: {totalXP}</p>
       </div>
       {/* Отображение графиков */}
       <div className="graphs">
         <div className="graph">
-          <h3>XP Progress</h3>
-          <XPGraph userId={userId} />
+          <h3>Daily XP Gain</h3> {/* Изменённый заголовок */}
+          <DailyXPGraph userId={userId} /> {/* Новый график */}
         </div>
         <div className="graph">
-          <h3>Project Ratio</h3>
-          <ProjectRatioGraph userId={userId} />
+          <h3>Projects XP Distribution</h3>
+          <ProjectsXPGraph userId={userId} />
         </div>
       </div>
     </div>

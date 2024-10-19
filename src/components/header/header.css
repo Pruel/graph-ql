@@ -5,12 +5,17 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  background-color: #000;
-  border-bottom: 2px solid #ccc;
+  background-color: #1a1a2e;
+  border-bottom: 2px solid #16213e;
 }
 
 .logo img {
   height: 50px;
+}
+
+.profile-menu img {
+  height: 50px;
+  width: 50px;
 }
 
 .header-right {
@@ -22,28 +27,34 @@
   position: relative;
 }
 
-.profile-link {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 16px;
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   cursor: pointer;
+}
+
+.profile-picture:hover {
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 .profile-dropdown {
   position: absolute;
-  top: 100%;
+  top: 60px; /* Смещаем ниже из-за высоты изображения */
   right: 0;
-  background-color: #fff;
-  color: #000;
+  background-color: #e0e0e0;
+  color: #1a1a2e;
   border: 1px solid #ccc;
   min-width: 200px;
   z-index: 1;
   padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .user-info p {
   margin: 5px 0;
+  font-size: 14px;
 }
 
 .logout-button {
@@ -53,9 +64,10 @@
   border: none;
   text-align: left;
   cursor: pointer;
-  color: #000;
+  color: #1a1a2e;
+  font-size: 16px;
 }
 
 .logout-button:hover {
-  background-color: #f0f0f0;
+  background-color: #cfcfcf;
 }
